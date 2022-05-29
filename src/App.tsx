@@ -11,7 +11,6 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import Ground from "components/ground";
 import PrinterHead from "components/printerhead";
 import { useState } from "react";
-import { isMobile } from "react-device-detect";
 import useRefs from "react-use-refs";
 import * as THREE from "three";
 
@@ -308,7 +307,7 @@ function Scroller() {
 
 function App() {
   return (
-    <Canvas shadows dpr={[1, 2]} camera={{ fov: isMobile ? 125 : 75 }}>
+    <Canvas shadows dpr={[1, 2]}>
       <Scroller />
     </Canvas>
   );
