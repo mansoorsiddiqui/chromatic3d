@@ -228,7 +228,7 @@ function HTMLContent() {
     for (let i = 0; i < l; i++) {
       handleSetTop(
         i,
-        parseFloat((scroll.range(i / l, (i + 1) / l, 0.1) * 1700).toFixed(3)) -
+        parseFloat((scroll.range(i / l, (i + 1) / l, 0.1) * 1400).toFixed(3)) -
           300
       );
     }
@@ -240,8 +240,8 @@ function HTMLContent() {
         style={{ top: top[0] }}
         className="flex flex-col justify-center items-center h-screen w-screen text-white"
       >
-        <h2 className="w-[400px] text-6xl">
-          Next Gen 3D Printing Enabled by Chemical Reactions
+        <h2 className="w-[600px] text-6xl capitalize text-center">
+          Make what matters
         </h2>
         <br />
         <br />
@@ -251,12 +251,15 @@ function HTMLContent() {
         style={{ transform: `translateY(${top[1]}px)` }}
         className="flex flex-col justify-center h-screen w-screen mx-auto max-w-[1050px]"
       >
-        <h2 className="w-[400px] mt-30 text-6xl">Built by Chemists</h2>
+        <h2 className="w-[400px] mt-30 text-5xl">
+          Printing powered by chemical reactions
+        </h2>
         <br />
         <br />
         <p className="w-[300px]">
-          The Chromatic 3D Printer utilizes chemistry to unleash new
-          possibilites in 3D printing
+          Unlike other types of 3D printing, we don&apos;t melt plastics or cure
+          them with UV. Our technology blends liquid ingredients in the printer
+          head, triggering a chemical reaction.
         </p>
       </div>
       <div className="h-screen" />
@@ -264,24 +267,25 @@ function HTMLContent() {
         style={{ transform: `translateY(${top[3]}px)` }}
         className="flex flex-col justify-start items-end h-screen w-screen mx-auto mt-40 text-right max-w-[1050px]"
       >
-        <h2 className="w-[400px] mt-30 text-6xl">The Reaction</h2>
+        <h2 className="w-[400px] mt-30 text-5xl">Indestructible strength</h2>
         <br />
         <br />
         <p className="w-[320px]">
-          Liquid components are mixed in the printer head, triggering a chemical
-          reaction
+          It&apos;s the beginning of an unbreakable molecular bond between the
+          strongest elastomers on the planet and any substrate you can imagine.
         </p>
       </div>
       <div
         style={{ transform: `translateY(${top[4]}px)` }}
         className="flex flex-col justify-start items-start h-screen w-screen mx-auto mt-40 max-w-[1050px]"
       >
-        <h2 className="w-[400px] mt-30 text-6xl">Like Origami</h2>
+        <h2 className="w-[400px] mt-30 text-5xl">RX-AM™ Technology</h2>
         <br />
         <br />
         <p className="w-[320px]">
-          The two streams are folded together, producing novel materials for an
-          array of applications
+          Called reactive extrusion additive manufacturing, this style of 3D
+          printing opens a world of thrilling possibilities for industrial
+          design and commercial production ─ from one part to one million.
         </p>
       </div>
     </>
