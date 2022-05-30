@@ -65,8 +65,8 @@ function ScrollContent() {
   // const { width, height } = useThree((state) => state.viewport);
   const groundColor = new THREE.Color(0xdddddd);
   const [spotLightOpacity, setSLO] = useState(0);
-  const [spotLight, printerHead] =
-    useRefs<[THREE.SpotLight, THREE.Group]>(null);
+  const [spotLight, printerHead, env] =
+    useRefs<[THREE.SpotLight, THREE.Group, any]>(null);
   const [currentPage, setcurrentPage] = useState(0);
 
   const [progress, setProgress] = useState(0);
@@ -95,6 +95,7 @@ function ScrollContent() {
       setProgress(offset);
     }
   };
+  console.log(env);
 
   useFrame(({ camera }, delta) => {
     const d = scroll.delta * 100;
@@ -227,7 +228,8 @@ function HTMLContent() {
     for (let i = 0; i < l; i++) {
       handleSetTop(
         i,
-        parseFloat((scroll.range(i / l, (i + 1) / l, 0.1) * 600).toFixed(3))
+        parseFloat((scroll.range(i / l, (i + 1) / l, 0.1) * 1700).toFixed(3)) -
+          300
       );
     }
   });
@@ -259,7 +261,7 @@ function HTMLContent() {
       </div>
       <div className="h-screen" />
       <div
-        style={{ paddingTop: top[3] }}
+        style={{ transform: `translateY(${top[3]}px)` }}
         className="flex flex-col justify-start items-end h-screen w-screen mx-auto mt-40 text-right max-w-[1050px]"
       >
         <h2 className="w-[400px] mt-30 text-6xl">The Reaction</h2>
@@ -271,7 +273,7 @@ function HTMLContent() {
         </p>
       </div>
       <div
-        style={{ paddingTop: top[4] }}
+        style={{ transform: `translateY(${top[4]}px)` }}
         className="flex flex-col justify-start items-start h-screen w-screen mx-auto mt-40 max-w-[1050px]"
       >
         <h2 className="w-[400px] mt-30 text-6xl">Like Origami</h2>
