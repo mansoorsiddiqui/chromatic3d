@@ -3,7 +3,6 @@ import {
   Scroll,
   ScrollControls,
   Shadow,
-  Sparkles,
   SpotLight,
   useScroll,
 } from "@react-three/drei";
@@ -171,24 +170,24 @@ function ScrollContent() {
       />
       <SpotLight
         ref={spotLight}
-        opacity={spotLightOpacity * 0.8}
+        opacity={spotLightOpacity}
         penumbra={1}
         distance={6}
         attenuation={5}
-        position={[1, 1, 1.5]}
-        intensity={spotLightOpacity * 0.3}
+        position={[1.4, 1.4, 0.3]}
+        intensity={spotLightOpacity * 0.8}
         angle={spotLightOpacity * 0.5}
         color="#FEF9E7"
         castShadow
       />
-      <Sparkles count={40} scale={10} size={4} speed={0.4} />
+      {/* <Sparkles count={40} scale={10} size={4} speed={0.4} /> */}
 
       <Environment
-        background
+        background={false}
         near={1}
         far={1000}
         resolution={1024}
-        preset="dawn"
+        preset="warehouse"
       />
 
       <group ref={printerHead}>
@@ -229,7 +228,7 @@ function HTMLContent() {
       handleSetTop(
         i,
         parseFloat((scroll.range(i / l, (i + 1) / l, 0.1) * 1400).toFixed(3)) -
-          300
+          100
       );
     }
   });

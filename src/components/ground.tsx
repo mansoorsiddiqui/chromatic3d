@@ -9,14 +9,13 @@ type GroundProps = {
 export default function Ground(props: GroundProps) {
   const { opacity } = props;
   const maps = useTexture({
-    map: "textures/Marble 2_BaseColor.jpg",
-    normalMap: "textures/Marble 2_Normal.jpg",
-    roughnessMap: "textures/Marble 2_Roughness.jpg",
-    aoMap: "textures/Marble 2_AmbientOcclusion.jpg",
-    metalnessMap: "textures/Marble 2_Metallic.jpg",
-    lightMap: "textures/Marble 2_Glossiness.jpg",
+    map: "textures/Plastic_003_basecolor.jpg",
+    normalMap: "textures/Plastic_003_normal.jpg",
+    roughnessMap: "textures/Plastic_003_roughness.jpg",
+    aoMap: "textures/Plastic_003_ambientOcclusion.jpg",
+    metalnessMap: "textures/Plastic_003_metallic.jpg",
   });
-  const textureRepeat = 80;
+  const textureRepeat = 10;
   // eslint-disable-next-line no-multi-assign
   maps.map.wrapS = maps.map.wrapT = THREE.RepeatWrapping;
   maps.map.repeat.set(textureRepeat, textureRepeat);
@@ -36,18 +35,17 @@ export default function Ground(props: GroundProps) {
     <Plane
       receiveShadow
       rotation-x={-Math.PI / 2}
-      args={[200, 200]}
+      args={[5, 5]}
       position={[0, -0.8, 0]}
     >
       <meshStandardMaterial
         {...maps}
-        color="#eee"
-        emissive="#ddd"
-        emissiveIntensity={0.05}
-        roughness={0.3}
-        metalness={0.9}
-        lightMapIntensity={0.4}
-        opacity={opacity}
+        color="#333"
+        emissive="#444"
+        emissiveIntensity={0.5}
+        roughness={1}
+        metalness={0.4}
+        opacity={opacity + 0.4}
         transparent
       />
     </Plane>

@@ -33,14 +33,15 @@ code {
 }
 
 h2 {
-  color: #3c3549;
+  color: #8a08ca;
+  font-weight: bolder;
   text-transform: uppercase;
-  text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.4);
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.8);
 }
 
 p {
-  color: #2c0e37;
+  color: white;
   font-size: large;
   font-weight: bold;
-  text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.4);
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
 }
