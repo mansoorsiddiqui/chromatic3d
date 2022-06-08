@@ -14,24 +14,22 @@ export default function PrinterHead(props) {
 
   const [redLiquid, blueLiquid] = useRefs();
 
-  materials.ClearPlastic.opacity =
-    materials.BlueLiquid.opacity =
-    materials.RedLiquid.opacity =
-      0.2;
-  materials.ClearPlastic.transparent =
-    materials.BlueLiquid.opacity =
-    materials.RedLiquid.opacity =
-      true;
+  materials.ClearPlastic.opacity = 0.4;
+  materials.ClearPlastic.transparent = true;
 
   useFrame(() => {
-    redLiquid.current.rotateY(0.05);
-    blueLiquid.current.rotateY(0.05);
-    // redLiquid.current.rotation.y += 0.05;
-    // blueLiquid.current.rotation.y += 0.05;
+    redLiquid.current.rotateY(-0.05);
+    blueLiquid.current.rotateY(-0.05);
   });
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group
+      ref={group}
+      {...props}
+      dispose={null}
+      rotation={[0, -Math.PI / 2, 0]}
+      position={[0, -0.4, 0]}
+    >
       <group scale={[1, 1, 0.83]}>
         <mesh
           castShadow
@@ -142,14 +140,14 @@ export default function PrinterHead(props) {
         ref={redLiquid}
         geometry={nodes.SpiralRed.geometry}
         material={materials.RedLiquid}
-        position={[0, -1.74, 0]}
+        position={[0, -1.77, 0]}
         scale={[0.9, 1, 0.9]}
       />
       <mesh
         ref={blueLiquid}
         geometry={nodes.SpiralBlue.geometry}
         material={materials.BlueLiquid}
-        position={[0, -1.74, 0]}
+        position={[0, -1.77, 0]}
         rotation={[-Math.PI, 0.36, -Math.PI]}
         scale={[0.9, 1, 0.9]}
       />

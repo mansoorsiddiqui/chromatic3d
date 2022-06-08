@@ -2,12 +2,7 @@ import { Plane, useTexture } from "@react-three/drei";
 import React from "react";
 import * as THREE from "three";
 
-type GroundProps = {
-  opacity: number;
-};
-
-export default function Ground(props: GroundProps) {
-  const { opacity } = props;
+export default function Ground() {
   const maps = useTexture({
     map: "textures/Plastic_003_basecolor.jpg",
     normalMap: "textures/Plastic_003_normal.jpg",
@@ -38,15 +33,15 @@ export default function Ground(props: GroundProps) {
       args={[5, 5]}
       position={[0, -0.8, 0]}
     >
-      <meshStandardMaterial
+      <meshPhysicalMaterial
         {...maps}
         color="#333"
         emissive="#444"
-        emissiveIntensity={0.5}
+        emissiveIntensity={0.4}
+        specularIntensity={0.05}
+        reflectivity={0.2}
         roughness={1}
-        metalness={0.4}
-        opacity={opacity + 0.4}
-        transparent
+        metalness={0}
       />
     </Plane>
   );

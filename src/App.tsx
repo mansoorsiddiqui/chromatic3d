@@ -3,13 +3,12 @@ import {
   Scroll,
   ScrollControls,
   Shadow,
-  SpotLight,
   useScroll,
 } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import Ground from "components/ground";
 import PrinterHead from "components/printerhead";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useRefs from "react-use-refs";
 import * as THREE from "three";
 
@@ -17,8 +16,8 @@ const Pages = [
   {
     id: 0,
     cameraPath: {
-      position: new THREE.Vector3(0, 1, 4),
-      rotation: new THREE.Vector3(Math.PI / 4, 0, 0),
+      position: new THREE.Vector3(0, 0, 3),
+      rotation: new THREE.Vector3(0, 0, 0),
     },
   },
   {
@@ -31,8 +30,8 @@ const Pages = [
   {
     id: 2,
     cameraPath: {
-      position: new THREE.Vector3(0, 0, 3),
-      rotation: new THREE.Vector3(0, 0, 0),
+      position: new THREE.Vector3(0, -0.4, 0.6),
+      rotation: new THREE.Vector3(-Math.PI / 8, 0, 0),
     },
   },
   {
@@ -45,7 +44,7 @@ const Pages = [
   {
     id: 4,
     cameraPath: {
-      position: new THREE.Vector3(0, -0.4, 0.6),
+      position: new THREE.Vector3(0, -0.5, 0.5),
       rotation: new THREE.Vector3(-Math.PI / 8, 0, 0),
     },
   },
@@ -63,9 +62,7 @@ function ScrollContent() {
   const l = Pages.length;
   // const { width, height } = useThree((state) => state.viewport);
   const groundColor = new THREE.Color(0xdddddd);
-  const [spotLightOpacity, setSLO] = useState(0);
-  const [spotLight, printerHead, env] =
-    useRefs<[THREE.SpotLight, THREE.Group, any]>(null);
+  const [printerHead] = useRefs<[THREE.Group]>(null);
   const [currentPage, setcurrentPage] = useState(0);
 
   const [progress, setProgress] = useState(0);
@@ -74,18 +71,21 @@ function ScrollContent() {
   const setOpacity = (obj: THREE.Object3D, opacity: number) => {
     obj.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        // eslint-disable-next-line no-param-reassign
-        child.material.opacity =
-          child.material.name === "ClearPlastic" ? 0.2 : opacity;
-        // eslint-disable-next-line no-param-reassign
-        child.material.transparent = true;
+        if (child.material.name !== "ClearPlastic") {
+          // eslint-disable-next-line no-param-reassign
+          child.material.opacity = opacity;
+          // eslint-disable-next-line no-param-reassign
+          child.material.transparent = true;
+        } else {
+          // eslint-disable-next-line no-param-reassign
+          child.material.depthTest = scroll.visible(0, 1 / l);
+        }
       }
     });
   };
   const handleScroll = () => {
     const { offset } = scroll;
-    setSLO(scroll.curve(0, 3 / l));
-    setOpacity(printerHead.current, scroll.range(0, 1 / l));
+    setOpacity(printerHead.current, scroll.range(0, 1 / l) + 0.2);
     if (offset > progress) {
       setDirection(1);
       setProgress(offset);
@@ -94,7 +94,9 @@ function ScrollContent() {
       setProgress(offset);
     }
   };
-  console.log(env);
+  useEffect(() => {
+    handleScroll();
+  }, []);
 
   useFrame(({ camera }, delta) => {
     const d = scroll.delta * 100;
@@ -106,13 +108,6 @@ function ScrollContent() {
       setcurrentPage(scrollPage);
     }
     const nextPage = Math.min(Math.max(currentPage + direction, 0), l - 1);
-
-    printerHead.current.rotation.y = THREE.MathUtils.damp(
-      printerHead.current.rotation.y,
-      -Math.PI * scroll.range(0, 1 / l, -0.1) * 0.5,
-      3,
-      delta
-    );
 
     camera.position.setX(
       THREE.MathUtils.damp(
@@ -162,25 +157,12 @@ function ScrollContent() {
 
   return (
     <>
-      <ambientLight intensity={scroll.curve(2 / l, l - 2 / l, 0.2)} />
+      <ambientLight intensity={0.2} />
       <directionalLight
-        intensity={scroll.range(2 / l, l - 2 / l)}
+        intensity={0.6}
         position={[0, 2, 0]}
         rotation={[0, 0, 0]}
       />
-      <SpotLight
-        ref={spotLight}
-        opacity={spotLightOpacity}
-        penumbra={1}
-        distance={6}
-        attenuation={5}
-        position={[1.4, 1.4, 0.3]}
-        intensity={spotLightOpacity * 0.8}
-        angle={spotLightOpacity * 0.5}
-        color="#FEF9E7"
-        castShadow
-      />
-      {/* <Sparkles count={40} scale={10} size={4} speed={0.4} /> */}
 
       <Environment
         background={false}
@@ -197,12 +179,10 @@ function ScrollContent() {
           scale={2}
           position={[0, -1, 0]}
           color={groundColor}
-          opacity={scroll.range(0, 2 / l)}
         />
       </group>
-      {/* <Sparks colors={["red", "blue"]} count={4} radius={0.1} /> */}
 
-      <Ground opacity={spotLightOpacity + 0.5} />
+      <Ground />
     </>
   );
 }
@@ -239,9 +219,13 @@ function HTMLContent() {
         style={{ top: top[0] }}
         className="flex flex-col justify-center items-center h-screen w-screen text-white"
       >
-        <h2 className="w-[600px] text-6xl capitalize text-center">
-          Make what matters
+        <h3 className="w-[500px] text-5xl uppercase text-center text-black">
+          Next Gen 3D Printing Enabled by
+        </h3>
+        <h2 className="w-[800px] text-7xl uppercase text-center">
+          Chemical Reactions
         </h2>
+        <br />
         <br />
         <br />
         <p>Scroll down</p>
