@@ -31,7 +31,7 @@ export default function Ground() {
       receiveShadow
       rotation-x={-Math.PI / 2}
       args={[5, 5]}
-      position={[0, -0.8, 0]}
+      position={[0, -3, 0]}
     >
       <meshPhysicalMaterial
         {...maps}
